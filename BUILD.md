@@ -8,3 +8,8 @@ Create API for BackUp
 ```
 kubebuilder create api --group backstore --version v1beta1 --kind Backup
 ```
+
+Create API for Restore
+```
+kubebuilder create api --group backstore --version v1beta1 --kind Restore
+```
