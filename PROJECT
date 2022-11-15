@@ -1,0 +1,6 @@
+domain: akankshakumari393.github.io
+layout:
+- go.kubebuilder.io/v3
+projectName: kubebook
+repo: akankshakumari393.github.io/kubebook
+version: "3"
