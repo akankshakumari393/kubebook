@@ -28,14 +28,19 @@ type RestoreSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Restore. Edit restore_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// VolumeSnapshotClassName defines the snapshotclass to be used
+	VolumeSnapshotClassName string `json:"volumeSnapshotClassName,omitempty"`
+	// VolumeSnapshotResourceName used to get volumeSnapshot details for creating PVC Resource
+	VolumeSnapshotResourceName string `json:"volumeSnapshotResourceName,omitempty"`
 }
 
 // RestoreStatus defines the observed state of Restore
 type RestoreStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// Progress is used to set the restore status
+	Progress string `json:"progress,omitempty"`
 }
 
 //+kubebuilder:object:root=true

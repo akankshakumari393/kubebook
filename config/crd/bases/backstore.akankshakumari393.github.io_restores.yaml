@@ -35,13 +35,21 @@ spec:
           spec:
             description: RestoreSpec defines the desired state of Restore
             properties:
-              foo:
-                description: Foo is an example field of Restore. Edit restore_types.go
-                  to remove/update
+              volumeSnapshotClassName:
+                description: VolumeSnapshotClassName defines the snapshotclass to
+                  be used
+                type: string
+              volumeSnapshotResourceName:
+                description: VolumeSnapshotResourceName used to get volumeSnapshot
+                  details for creating PVC Resource
                 type: string
             type: object
           status:
             description: RestoreStatus defines the observed state of Restore
+            properties:
+              progress:
+                description: Progress is used to set the restore status
+                type: string
             type: object
         type: object
     served: true
