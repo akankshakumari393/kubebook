@@ -44,10 +44,9 @@ var (
 
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
-
+	utilruntime.Must(snapshots.AddToScheme(scheme))
 	utilruntime.Must(backstorev1beta1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
-	utilruntime.Must(snapshots.AddToScheme(scheme))
 }
 
 func main() {
@@ -101,8 +100,10 @@ func main() {
 		os.Exit(1)
 	}
 	if err = (&controllers.RestoreReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
+		Client:   mgr.GetClient(),
+		Log:      ctrl.Log.WithName("controllers").WithName("Restore"),
+		Scheme:   mgr.GetScheme(),
+		Recorder: mgr.GetEventRecorderFor("restore-controller"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Restore")
 		os.Exit(1)
