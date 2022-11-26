@@ -22,8 +22,10 @@ go mod tidy
 ```
 
 
-
-
+### Local setup with Pod and PVC
+```
+kubectl create -f config/storage.yaml
+```
 
 
 

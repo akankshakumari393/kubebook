@@ -1,0 +1,97 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: mysql-pv-volume
+#   labels:
+#     type: local
+# spec:
+#   storageClassName: csi-hostpath-sc
+#   capacity:
+#     storage: 20Gi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: "/mnt/data"
+# ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mysql
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: mysql
+spec:
+  storageClassName: csi-hostpath-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nvolpod
+  namespace: mysql
+spec:
+  containers:
+    - name: test
+      image: nginx
+      volumeMounts:
+      - mountPath: "/var/www/html" # Folder in pod mounting nfsclaim 
+        name: mypd
+  volumes:
+    - name: mypd             # volume name the container can mount
+      persistentVolumeClaim: # Source of storage
+        claimName: mysql-pv-claim  # name of pvc created
+
+# ---
+# apiVersion: snapshot.storage.k8s.io/v1
+# kind: VolumeSnapshot
+# metadata:
+#   name: snapshot-demo
+#   namespace: mysql
+# spec:
+#   volumeSnapshotClassName: csi-hostpath-snapclass
+#   source:
+#     persistentVolumeClaimName: mysql-pv-claim
+# ---
+# # example-csi-restore.yaml
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: csi-pvc-restore
+#   namespace: mysql
+# spec:
+#   storageClassName: csi-hostpath-sc
+#   dataSource:
+#     name: snapshot-demo
+#     kind: VolumeSnapshot
+#     apiGroup: snapshot.storage.k8s.io
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 20Gi
+
+# ---
+# # example-csi-restore.yaml
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: csi-pvc-rest
+#   namespace: mysql
+# spec:
+#   storageClassName: csi-hostpath-sc
+#   dataSource:
+#     name: snapshot-demo
+#     kind: VolumeSnapshot
+#     apiGroup: snapshot.storage.k8s.io
+#   accessModes:
+#     - ReadWriteOnce
+#   resources:
+#     requests:
+#       storage: 20Gi
