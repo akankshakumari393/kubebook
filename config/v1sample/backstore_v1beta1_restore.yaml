@@ -1,0 +1,15 @@
+apiVersion: backstore.akankshakumari393.github.io/v1beta1
+kind: Restore
+metadata:
+  labels:
+    app.kubernetes.io/name: restore
+    app.kubernetes.io/instance: restore-sample
+    app.kubernetes.io/part-of: kubebook
+    app.kuberentes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kubebook
+  name: restore-sample
+  namespace: mysql
+spec:
+  volumeSnapshotClassName: csi-hostpath-snapclass
+  volumeSnapshotResourceName: new-volume-snapshot 
+  # TODO(user): Add fields here

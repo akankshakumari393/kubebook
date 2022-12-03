@@ -1,0 +1,16 @@
+apiVersion: backstore.akankshakumari393.github.io/v1beta1
+kind: Backup
+metadata:
+  labels:
+    app.kubernetes.io/name: backup
+    app.kubernetes.io/instance: backup-sample
+    app.kubernetes.io/part-of: kubebook
+    app.kuberentes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kubebook
+  name: backup-sample
+  namespace: mysql
+spec:
+  volumeSnapshotName: "new-volume-snapshot"
+  volumeSnapshotClassName: "csi-hostpath-snapclass"
+  pvcName: mysql-pv-claim
+  pvcNamespace: mysql 

@@ -95,3 +95,28 @@ spec:
 #   resources:
 #     requests:
 #       storage: 20Gi
+
+### edit the controller role and add these
+
+# - apiGroups:
+#   - snapshot.storage.k8s.io
+#   resources:
+#   - volumesnapshots
+#   verbs:
+#   - list
+#   - watch
+#   - create
+# - apiGroups:
+#   - ""
+#   resources:
+#   - events
+#   verbs:
+#   - create
+# - apiGroups:
+#   - ""
+#   resources:
+#   - persistentvolumeclaims
+#   verbs:
+#   - create
+#   - list
+#   - watch
