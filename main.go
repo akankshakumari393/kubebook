@@ -32,6 +32,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
+	backstorev1 "akankshakumari393.github.io/kubebook/apis/backstore/v1"
 	backstorev1beta1 "akankshakumari393.github.io/kubebook/apis/backstore/v1beta1"
 	controllers "akankshakumari393.github.io/kubebook/controllers/backstore"
 	//+kubebuilder:scaffold:imports
@@ -46,6 +47,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 	utilruntime.Must(snapshots.AddToScheme(scheme))
 	utilruntime.Must(backstorev1beta1.AddToScheme(scheme))
+	utilruntime.Must(backstorev1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 

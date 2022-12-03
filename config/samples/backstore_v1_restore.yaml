@@ -1,0 +1,12 @@
+apiVersion: backstore.akankshakumari393.github.io/v1
+kind: Restore
+metadata:
+  labels:
+    app.kubernetes.io/name: restore
+    app.kubernetes.io/instance: restore-sample
+    app.kubernetes.io/part-of: kubebook
+    app.kuberentes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: kubebook
+  name: restore-sample
+spec:
+  # TODO(user): Add fields here

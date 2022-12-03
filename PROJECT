@@ -23,4 +23,20 @@ resources:
   kind: Restore
   path: akankshakumari393.github.io/kubebook/api/v1beta1
   version: v1beta1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: akankshakumari393.github.io
+  group: backstore
+  kind: Backup
+  path: akankshakumari393.github.io/kubebook/apis/backstore/v1
+  version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: akankshakumari393.github.io
+  group: backstore
+  kind: Restore
+  path: akankshakumari393.github.io/kubebook/apis/backstore/v1
+  version: v1
 version: "3"
