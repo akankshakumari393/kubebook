@@ -30,7 +30,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	backstorev1beta1 "akankshakumari393.github.io/kubebook/api/v1beta1"
+	backstorev1beta1 "akankshakumari393.github.io/kubebook/apis/backstore/v1beta1"
 	//+kubebuilder:scaffold:imports
 )
 

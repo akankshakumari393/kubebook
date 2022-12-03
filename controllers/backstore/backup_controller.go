@@ -34,7 +34,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	backstorev1beta1 "akankshakumari393.github.io/kubebook/api/v1beta1"
+	backstorev1beta1 "akankshakumari393.github.io/kubebook/apis/backstore/v1beta1"
 )
 
 // BackupReconciler reconciles a Backup object

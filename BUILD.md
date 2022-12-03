@@ -37,6 +37,37 @@ kubectl create -f config/storage.yaml
 
 
 
+
+
+### Implementing v1 version of Resources
+
+```
+kubebuilder create api --group batch --version v1 --kind Backup
+```
+
+this fails with error
+```
+failed to create API: unable to inject the resource to "base.go.kubebuilder.io/v3": multiple groups are not allowed by default, to enable multi-group visit https://kubebuilder.io/migration/multi-group.html
+```
+
+Make the project directory structure to be compatible to support multiple version
+```
+mkdir apis/backstore
+mkdir -p apis/backstore
+mv api/* apis/backstore
+rm -rf api/ 
+mkdir controllers/backstore
+mv controllers/* controllers/backstore/
+```
+
+Resolve all the dependencies
+
+
+
+
+
+
+
 ### Reference
 [Kubebuilder CRD tags](https://book.kubebuilder.io/reference/markers/crd.html)
 [kubernetes-controllers-at-scale-clients-caches-conflicts-patches-explained](https://medium.com/@timebertt/kubernetes-controllers-at-scale-clients-caches-conflicts-patches-explained-aa0f7a8b4332)
