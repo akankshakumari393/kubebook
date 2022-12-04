@@ -46,6 +46,7 @@ type BackupStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Backup is the Schema for the backups API
 type Backup struct {

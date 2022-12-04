@@ -15,6 +15,52 @@ spec:
     singular: backup
   scope: Namespaced
   versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: Backup is the Schema for the backups API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: BackupSpec defines the desired state of Backup
+            properties:
+              pvcName:
+                description: PVCName defines the name of the PVC to be backed up
+                type: string
+              volumeSnapshotClassName:
+                description: VolumeSnapshotClassName defines the snapshotclass to
+                  be used
+                type: string
+            type: object
+          status:
+            description: BackupStatus defines the observed state of Backup
+            properties:
+              progress:
+                description: State determine the status of backup Resource
+                type: string
+              snapshotName:
+                description: SnapshotName gives the name of snapshot
+                type: string
+              status:
+                description: Status determine the status of the Backup Resources
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: false
+    subresources:
+      status: {}
   - name: v1beta1
     schema:
       openAPIV3Schema:

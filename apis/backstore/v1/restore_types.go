@@ -46,6 +46,7 @@ type RestoreStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+// +kubebuilder:storageversion
 
 // Restore is the Schema for the restores API
 type Restore struct {
