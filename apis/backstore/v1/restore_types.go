@@ -28,14 +28,20 @@ type RestoreSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Restore. Edit restore_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Backup is the name of BackupResource in the namespace from where we want to restore
+	Backup string `json:"backup,omitempty"`
 }
 
 // RestoreStatus defines the observed state of Restore
 type RestoreStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// PVCState is the state of the PVC
+	PVCState string `json:"pvcState,omitempty"`
+
+	// Status id the status of Restore Resource
+	Status string `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true

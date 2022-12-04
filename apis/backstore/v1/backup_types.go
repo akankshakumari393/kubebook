@@ -28,14 +28,25 @@ type BackupSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Backup. Edit backup_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// VolumeSnapshotClassName defines the snapshotclass to be used
+	VolumeSnapshotClassName string `json:"volumeSnapshotClassName,omitempty"`
+	// PVCName defines the name of the PVC to be backed up
+	PVCName string `json:"pvcName,omitempty"`
 }
 
 // BackupStatus defines the observed state of Backup
 type BackupStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// SnapshotName gives the name of snapshot
+	SnapshotName string `json:"snapshotName,omitempty"`
+
+	// State determine the status of backup Resource
+	State string `json:"progress,omitempty"`
+
+	// Status determine the status of the Backup Resources
+	Status string `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
