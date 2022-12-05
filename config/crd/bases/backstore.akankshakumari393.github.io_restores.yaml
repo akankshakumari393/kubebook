@@ -43,11 +43,14 @@ spec:
           status:
             description: RestoreStatus defines the observed state of Restore
             properties:
-              pvcState:
+              pvcName:
                 description: PVCState is the state of the PVC
                 type: string
+              state:
+                description: State the state of PVC Resource
+                type: string
               status:
-                description: Status id the status of Restore Resource
+                description: Status
                 type: string
             type: object
         type: object
@@ -55,7 +58,9 @@ spec:
     storage: true
     subresources:
       status: {}
-  - name: v1beta1
+  - deprecated: true
+    deprecationWarning: this version is deprecated
+    name: v1beta1
     schema:
       openAPIV3Schema:
         description: Restore is the Schema for the restores API
@@ -92,7 +97,7 @@ spec:
                 type: string
             type: object
         type: object
-    served: true
+    served: false
     storage: false
     subresources:
       status: {}

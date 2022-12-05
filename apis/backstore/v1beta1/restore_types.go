@@ -45,6 +45,8 @@ type RestoreStatus struct {
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:deprecatedversion:warning="this version is deprecated"
+// +kubebuilder:unservedversion
 
 // Restore is the Schema for the restores API
 type Restore struct {

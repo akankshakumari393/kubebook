@@ -38,15 +38,18 @@ type RestoreStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// PVCState is the state of the PVC
-	PVCState string `json:"pvcState,omitempty"`
+	PVCName string `json:"pvcName,omitempty"`
 
-	// Status id the status of Restore Resource
+	// State the state of PVC Resource
+	State string `json:"state,omitempty"`
+
+	// Status
 	Status string `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
-// +kubebuilder:storageversion
+//+kubebuilder:storageversion
 
 // Restore is the Schema for the restores API
 type Restore struct {
