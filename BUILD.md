@@ -62,8 +62,14 @@ mv controllers/* controllers/backstore/
 
 Resolve all the dependencies
 
+kubebuilder create api --group backstore --version v1 --kind Backup [create only resource and not controller]
 
+kubebuilder create api --group backstore --version v1 --kind Restore
 
+Make all changes in v1 Backup and Restore Type
+
+Run `make install`
+This would modify the CRDs
 
 
 
@@ -72,3 +78,4 @@ Resolve all the dependencies
 [Kubebuilder CRD tags](https://book.kubebuilder.io/reference/markers/crd.html)
 [kubernetes-controllers-at-scale-clients-caches-conflicts-patches-explained](https://medium.com/@timebertt/kubernetes-controllers-at-scale-clients-caches-conflicts-patches-explained-aa0f7a8b4332)
 [https://cloud.redhat.com/blog/kubernetes-operators-best-practices](https://cloud.redhat.com/blog/kubernetes-operators-best-practices)
+[https://developer.ibm.com/tutorials/create-a-conversion-webhook-with-the-operator-sdk/](https://developer.ibm.com/tutorials/create-a-conversion-webhook-with-the-operator-sdk/)
