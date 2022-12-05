@@ -18,7 +18,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/go-logr/logr"
@@ -35,7 +34,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	backstorev1beta1 "akankshakumari393.github.io/kubebook/apis/backstore/v1beta1"
+	backstorev1 "akankshakumari393.github.io/kubebook/apis/backstore/v1"
 )
 
 // RestoreReconciler reconciles a Restore object
@@ -65,7 +64,7 @@ func (r *RestoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	// TODO(user): your logic here
 	log := r.Log.WithValues("restore", req.NamespacedName)
 	// TODO(user): your logic here
-	var restore backstorev1beta1.Restore
+	var restore backstorev1.Restore
 	if err := r.Get(ctx, req.NamespacedName, &restore); err != nil {
 		r.Log.Info("failed to get Restore resource.......... object might have been deleted")
 		// Ignore NotFound errors as they will be retried automatically if the
@@ -73,10 +72,10 @@ func (r *RestoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		return ctrl.Result{}, client.IgnoreNotFound(err)
 	}
 
-	var pvc v1.PersistentVolumeClaim
+	// var pvc v1.PersistentVolumeClaim
 	r.Log.Info("checking if PVC already exists for this kind restore ")
 
-	err := r.Client.Get(ctx, types.NamespacedName{Name: restore.Spec.VolumeSnapshotResourceName, Namespace: restore.Namespace}, &pvc)
+	err := r.Client.Get(ctx, types.NamespacedName{Name: restore.Spec.Backup, Namespace: restore.Namespace}, &pvc)
 	if apierrors.IsNotFound(err) {
 		pvc := persistentVolumeClaim(restore)
 		err := r.Create(ctx, pvc)
@@ -84,7 +83,8 @@ func (r *RestoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 			r.Log.Error(err, "failed to create persistence volume claim resource")
 			return ctrl.Result{}, err
 		}
-		restore.Status.Progress = fmt.Sprintf(pvc.Name + " CREATED")
+		restore.Status.PVCName = pvc.Name
+		restore.Status.State = "CREATED"
 		err = r.Client.Status().Update(ctx, &restore)
 		if err != nil {
 			r.Log.Error(err, "Error Updating Status.")
@@ -109,7 +109,8 @@ func (r *RestoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 			r.Log.Error(err, "Error Waiting for PVC to be created")
 			return ctrl.Result{}, err
 		}
-		restore.Status.Progress = fmt.Sprintf(pvc.Name + " READY")
+		restore.Status.PVCName = pvc.Name
+		restore.Status.State = "READY"
 		err = r.Client.Status().Update(ctx, &restore)
 		if err != nil {
 			r.Log.Error(err, "Error Updating READY Status.")
@@ -128,8 +129,9 @@ func (r *RestoreReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
 // SetupWithManager sets up the controller with the Manager.
 func (r *RestoreReconciler) SetupWithManager(mgr ctrl.Manager) error {
+	r.Log.Info("Setting up manager for restore reconciler")
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&backstorev1beta1.Restore{}).
+		For(&backstorev1.Restore{}).
 		Complete(r)
 }
 
